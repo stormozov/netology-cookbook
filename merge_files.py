@@ -55,7 +55,7 @@ def merge_files(source_files: list, result_file: str):
 				}
 			})
 
-	pprint.pprint(temp_list)
+	temp_list.sort(key=lambda x: x[list(x.keys())[0]]['count_lines'])
 
 	with open(result_file, 'w', encoding=UNICODE) as result:
 		for dictionary in temp_list:
