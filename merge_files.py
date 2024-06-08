@@ -34,13 +34,6 @@ def get_files_by_extension(file_extension: str) -> dict:
 all_txt_file_paths: dict = get_files_by_extension('.txt')
 
 
-def count_number_rows(source):
-	count: int = 0
-	for _ in source:
-		count += 1
-	return count
-
-
 def merge_files(source_files: list, result_file: str):
 	temp_list = []
 	for source_file in source_files:
@@ -50,7 +43,7 @@ def merge_files(source_files: list, result_file: str):
 			temp_list.append({
 				file_name: {
 					'file_name': file_name,
-					'count_lines': count_number_rows(file_content),
+					'count_lines': len(file_content or []),
 					'content': file_content
 				}
 			})
