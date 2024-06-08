@@ -1,12 +1,10 @@
-# Importing the OS module to work with the operating system
-# https://docs.python.org/3/library/os.html
-import os
+import get_files_paths as gfp
 # I import the Pprint module to better output bulk information to the console for verification
 # https://docs.python.org/3/library/pprint.html
 import pprint
 
 # I get the absolute path to the recipe file
-recipes_file_path = os.path.join(os.getcwd(), 'source_files', 'recipes.txt')
+all_txt_file_paths: dict = gfp.get_files_by_extension('.txt')
 
 
 def process_ing_dish(source):
@@ -62,9 +60,7 @@ def process_recipes(source_file: str, coding_standard: str) -> dict[str, list[di
 		return cook_book
 
 
-# pprint.pprint(process_recipes(recipes_file_path, 'UTF-8'))
-
-cookbook: dict[str, list[dict]] = process_recipes(recipes_file_path, 'UTF-8')
+cookbook: dict[str, list[dict]] = process_recipes(all_txt_file_paths['recipes.txt'], 'UTF-8')
 
 
 def generate_shopping_list(sources: dict[str, list[dict]], dishes: list[str], people: int) -> dict[
