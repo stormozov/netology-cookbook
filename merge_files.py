@@ -41,29 +41,31 @@ def count_number_rows(source):
 	return count
 
 
-def merge_files(source_file_1, source_file_2, source_file_3, result_file):
-	with (open(source_file_1, 'r', encoding=UNICODE) as f1,
-		  open(source_file_2, 'r', encoding=UNICODE) as f2,
-		  open(source_file_3, 'r', encoding=UNICODE) as f3):
-		temp_list = []
-		file_content = f1.readlines()
-		file_lines_count = count_number_rows(file_content)
-		file_name = os.path.basename(source_file_1)
-		temp_list.append({
-			file_name: {
-				'file_name': file_name,
-				'count_lines': file_lines_count,
-				'content': file_content
-			}
-		})
+def merge_files(source_files: list, result_file: str):
+	temp_list = []
+	for source_file in source_files:
+		with open(source_file, 'r', encoding=UNICODE) as f:
+			file_name = os.path.basename(source_file)
+			file_content = f.readlines()
+			temp_list.append({
+				file_name: {
+					'file_name': file_name,
+					'count_lines': count_number_rows(file_content),
+					'content': file_content
+				}
+			})
 
-		with open(result_file, 'w', encoding=UNICODE) as result:
-			for dictionary in temp_list:
-				for info in dictionary:
-					result.write(f'{info}\n{dictionary[info]["count_lines"]}\n')
-					for i3 in dictionary[info]['content']:
-						result.write(f'{i3}')
+	pprint.pprint(temp_list)
+
+	with open(result_file, 'w', encoding=UNICODE) as result:
+		for dictionary in temp_list:
+			for info in dictionary:
+				result.write(f'{info}\n{dictionary[info]["count_lines"]}\n')
+				for i3 in dictionary[info]['content']:
+					result.write(f'{i3}')
 
 
-merge_files(all_txt_file_paths['1.txt'], all_txt_file_paths['2.txt'], all_txt_file_paths['3.txt'],
-			all_txt_file_paths['merged_files.txt'])
+merge_files(
+	[all_txt_file_paths['1.txt'], all_txt_file_paths['2.txt'], all_txt_file_paths['3.txt']],
+	all_txt_file_paths['merged_files.txt']
+)
