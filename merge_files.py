@@ -3,7 +3,7 @@ import get_files_paths as gfp
 import pprint
 
 UNICODE = 'UTF-8'
-all_txt_file_paths: dict = gfp.get_files_by_extension('.txt')
+all_txt_file_paths: dict = gfp.get_files_by_extension('source_files', '.txt')
 
 
 def merge_files(source_files: list, result_file: str):
